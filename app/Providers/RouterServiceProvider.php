@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\CartRepository;
+use App\Repositories\CartRepositoryInterface;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\ProductRepository;
@@ -20,6 +22,7 @@ class RouterServiceProvider extends ServiceProvider
         $this->app->singleton(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->singleton(ProductRepositoryInterface::class ,ProductRepository::class);
         $this->app->singleton(WishlistRepositoryInterface::class, WishlistRepository::class);
+        $this->app->singleton(CartRepositoryInterface::class, CartRepository::class);
     }
 
     /**

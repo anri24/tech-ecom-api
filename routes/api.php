@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
@@ -30,4 +31,10 @@ Route::controller(WishlistController::class)->group(function () {
     Route::get('wishlist/all','index');
     Route::post('wishlist/store','store');
     Route::delete('wishlist/delete/{id}','destroy');
+});
+
+Route::controller(CartController::class)->group(function () {
+    Route::get('cart/all','index');
+    Route::post('cart/store','store');
+    Route::delete('cart/delete/{id}','destroy');
 });
