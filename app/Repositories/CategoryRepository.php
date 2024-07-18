@@ -12,7 +12,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function getall()
     {
-        return $this->model::all();
+        return $this->model::query()->where('category_id',null)->get();
     }
 
     public function findById($id)
