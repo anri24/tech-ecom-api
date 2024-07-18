@@ -19,4 +19,9 @@ class Product extends Model
         'in_stock',
         'description',
     ];
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class,'product_id','id');
+    }
 }
