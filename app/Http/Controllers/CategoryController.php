@@ -19,9 +19,9 @@ class CategoryController extends Controller
     }
 
 
-    public function show(Category $category)
+    public function show($id)
     {
-        return $this->repository->findById($category);
+        return $this->repository->findById($id);
     }
 
     public function store(StoreCategoryRequest $request)
@@ -30,13 +30,13 @@ class CategoryController extends Controller
     }
 
 
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, $id)
     {
-        return $this->repository->update($request->validated(), $category);
+        return $this->repository->update($request->validated(), $id);
     }
 
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        return $this->repository->delete($category);
+        return $this->repository->delete($id);
     }
 }

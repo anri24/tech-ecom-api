@@ -10,8 +10,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::controller(CategoryController::class)->group(function () {
     Route::get('category/all','index');
-    Route::get('category/{category}','show');
+    Route::get('category/{id}','show');
     Route::post('category/store','store');
-    Route::put('category/update/{category}','update');
-    Route::delete('category/delete/{category}','destroy');
+    Route::patch('category/update/{id}','update');
+    Route::delete('category/delete/{id}','destroy');
 });
