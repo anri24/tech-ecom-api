@@ -23,10 +23,6 @@ class ProductController extends Controller
         return $this->repository->findById($id);
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreProductRequest $request)
     {
         return $this->repository->create($request->validated());

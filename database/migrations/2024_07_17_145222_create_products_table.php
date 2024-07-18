@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->float('price');
             $table->integer('discount')->nullable();
-            $table->boolean('in_stock');
-            $table->string('description');
+            $table->boolean('in_stock')->default(true);
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
