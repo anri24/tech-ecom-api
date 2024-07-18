@@ -6,6 +6,8 @@ use App\Repositories\CategoryRepository;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductRepositoryInterface;
+use App\Repositories\WishlistRepository;
+use App\Repositories\WishlistRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RouterServiceProvider extends ServiceProvider
@@ -17,6 +19,7 @@ class RouterServiceProvider extends ServiceProvider
     {
         $this->app->singleton(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->singleton(ProductRepositoryInterface::class ,ProductRepository::class);
+        $this->app->singleton(WishlistRepositoryInterface::class, WishlistRepository::class);
     }
 
     /**

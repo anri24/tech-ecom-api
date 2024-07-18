@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,10 @@ Route::controller(ProductController::class)->group(function (){
     Route::post('product/store','store');
     Route::patch('product/update/{id}','update');
     Route::delete('product/delete/{id}','destroy');
+});
+
+Route::controller(WishlistController::class)->group(function () {
+    Route::get('wishlist/all','index');
+    Route::post('wishlist/store','store');
+    Route::delete('wishlist/delete/{id}','destroy');
 });
