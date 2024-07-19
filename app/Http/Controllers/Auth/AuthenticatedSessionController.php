@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -13,13 +14,21 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): Response
+    public function store(LoginRequest $request)
     {
-        $request->authenticate();
+        $credentials = $request->validated();
 
-        $request->session()->regenerate();
+        if (!Auth::attempt($credentials)){
+            return response([
+                'message' => 'Provided email address or password is incorrect'
+            ], 422);
+        }
 
-        return response()->noContent();
+        /** @var User $user */
+        $user = Auth::user();
+        $token = $user->createToken('main')->plainTextToken;
+
+        return response()->json(['user' => $user,'token' => $token]);
     }
 
     /**
@@ -27,12 +36,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): Response
     {
-        Auth::guard('web')->logout();
+        /** @var User $user */
+        $user = $request->user();
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return response()->noContent();
+        $user->currentAccessToken()->delete();
+        return response('',204);
     }
 }
