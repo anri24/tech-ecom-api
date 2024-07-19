@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        return $this->repository->findById($id);
+        return CategoriesResource::make($this->repository->findById($id));
     }
 
     public function store(StoreCategoryRequest $request)

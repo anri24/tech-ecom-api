@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('category_id')->nullable();
             $table->string('name');
+            $table->longText('svg');
             $table->timestamps();
         });
     }
