@@ -13,31 +13,41 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 require __DIR__.'/auth.php';
 
+Route::middleware(['auth:sanctum'])->group(function (){
 
 Route::controller(CategoryController::class)->group(function () {
     Route::get('category/all','index');
     Route::get('category/{id}','show');
-    Route::post('category/store','store');
-    Route::patch('category/update/{id}','update');
-    Route::delete('category/delete/{id}','destroy');
+
+    Route::middleware('auth:sanctum')->group(function (){
+        Route::post('category/store','store');
+        Route::patch('category/update/{id}','update');
+        Route::delete('category/delete/{id}','destroy');
+    });
 });
 
 Route::controller(ProductController::class)->group(function (){
     Route::get('product/all','index');
     Route::get('product/{id}','show');
-    Route::post('product/store','store');
-    Route::patch('product/update/{id}','update');
-    Route::delete('product/delete/{id}','destroy');
+
+    Route::middleware('auth:sanctum')->group(function (){
+        Route::post('product/store','store');
+        Route::patch('product/update/{id}','update');
+        Route::delete('product/delete/{id}','destroy');
+    });
+
 });
 
-Route::controller(WishlistController::class)->group(function () {
+Route::controller(WishlistController::class)->middleware('auth:sanctum')->group(function () {
     Route::get('wishlist/all','index');
     Route::post('wishlist/store','store');
     Route::delete('wishlist/delete/{id}','destroy');
 });
 
-Route::controller(CartController::class)->group(function () {
+Route::controller(CartController::class)->middleware('auth:sanctum')->group(function () {
     Route::get('cart/all','index');
     Route::post('cart/store','store');
     Route::delete('cart/delete/{id}','destroy');
+});
+
 });

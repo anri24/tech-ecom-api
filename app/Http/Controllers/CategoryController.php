@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoriesResource;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
@@ -15,7 +16,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return $this->repository->getall();
+        return CategoriesResource::collection($this->repository->getall());
     }
 
 

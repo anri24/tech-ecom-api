@@ -33,11 +33,11 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->string('password')),
         ]);
 
-        $token = $user->createToken("ACCESS_TOKEN");
+        $token = $user->createToken("main")->plainTextToken;
 
-        event(new Registered($user));
+//        event(new Registered($user));
 
-        Auth::login($user);
+//        Auth::login($user);
 
         return response()->json(['user' => $user, 'token'=> $token]);
     }
