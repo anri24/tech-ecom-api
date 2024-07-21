@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Models\Wishlist;
+use App\Http\Actions\Wishlist\{CreateWishlistAction, DeleteWishlistAction};
 use App\Http\Requests\StoreWishlistRequest;
-use App\Http\Requests\UpdateWishlistRequest;
-use App\Repositories\WishlistRepositoryInterface;
+use App\Repositories\Contracts\WishlistRepositoryInterface;
 
 class WishlistController extends Controller
 {
@@ -18,13 +19,17 @@ class WishlistController extends Controller
         return $this->repository->index();
     }
 
-    public function store(StoreWishlistRequest $request)
+    public function store(CreateWishlistAction $createWishlistAction,StoreWishlistRequest $request)
     {
-        return $this->repository->store($request->validated());
+        $createWishlistAction->execute($request);
+
+        return response()->noContent(201);
     }
 
-    public function destroy($id)
+    public function destroy(DeleteWishlistAction $deleteWishlistAction, $id)
     {
-        return $this->repository->delete($id);
+        $deleteWishlistAction->execute($id);
+
+        return response()->noContent(202);
     }
 }

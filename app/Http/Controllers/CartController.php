@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
 use App\Http\Requests\StoreCartRequest;
-use App\Http\Requests\UpdateCartRequest;
-use App\Repositories\CartRepositoryInterface;
+use App\Repositories\Contracts\CartRepositoryInterface;
 
 class CartController extends Controller
 {

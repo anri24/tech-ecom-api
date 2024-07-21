@@ -1,17 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Http\Actions\Product\CreateProductAction;
+use App\Http\Actions\Product\DeleteProductAction;
+use App\Http\Actions\Product\UpdateProductAction;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Repositories\ProductRepositoryInterface;
+use App\Repositories\Contracts\ProductRepositoryInterface;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
     public function __construct(
         protected readonly ProductRepositoryInterface $repository
-    ){}
+    )
+    {
+    }
 
     public function index()
     {
@@ -23,21 +30,24 @@ class ProductController extends Controller
         return $this->repository->findById($id);
     }
 
-    public function store(StoreProductRequest $request)
+    public function store(CreateProductAction $createProductAction, StoreProductRequest $request)
     {
-        return $this->repository->create($request->validated());
+        $createProductAction->execute($request);
+
+        return response()->noContent(201);
     }
 
-    public function update(UpdateProductRequest $request, $id)
+    public function update(UpdateProductAction $updateProductAction, UpdateProductRequest $request, $id)
     {
-        return $this->repository->update($request->validated(), $id);
+        $updateProductAction->execute($request, $id);
+
+        return response()->noContent();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function destroy(DeleteProductAction $deleteProductAction, $id): Response
     {
-        return $this->repository->delete($id);
+        $deleteProductAction->execute($id);
+
+        return response()->noContent(202);
     }
 }

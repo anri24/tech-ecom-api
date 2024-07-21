@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CategoriesResource;
-use App\Models\Category;
+use App\Http\Actions\Category\{CreateCategoryAction, DeleteCategoryAction, UpdateCategoryAction};
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-use App\Repositories\CategoryRepositoryInterface;
+use App\Http\Resources\CategoriesResource;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -25,19 +28,25 @@ class CategoryController extends Controller
         return CategoriesResource::make($this->repository->findById($id));
     }
 
-    public function store(StoreCategoryRequest $request)
+    public function store(CreateCategoryAction $createCategoryAction, StoreCategoryRequest $request): Response
     {
-        return $this->repository->create($request->validated());
+        $createCategoryAction->execute($request);
+
+        return response()->noContent(201);
     }
 
 
-    public function update(UpdateCategoryRequest $request, $id)
+    public function update(UpdateCategoryAction $updateCategoryAction, UpdateCategoryRequest $request, $id)
     {
-        return $this->repository->update($request->validated(), $id);
+        $updateCategoryAction->execute($request, $id);
+
+        return response()->noContent(204);
     }
 
-    public function destroy($id)
+    public function destroy(DeleteCategoryAction $deleteCategoryAction, $id)
     {
-        return $this->repository->delete($id);
+        $deleteCategoryAction->execute($id);
+
+        return response()->noContent(202);
     }
 }
