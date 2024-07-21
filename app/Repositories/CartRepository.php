@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Cart;
+use App\Repositories\Contracts\CartRepositoryInterface;
 
 class CartRepository implements CartRepositoryInterface
 {

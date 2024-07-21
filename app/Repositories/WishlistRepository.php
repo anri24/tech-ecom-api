@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Wishlist;
+use App\Repositories\Contracts\WishlistRepositoryInterface;
 
 class WishlistRepository implements WishlistRepositoryInterface
 {
@@ -15,13 +16,9 @@ class WishlistRepository implements WishlistRepositoryInterface
         return $this->model::query()->orderBy('id','DESC')->get();
     }
 
-    public function store($data)
+    public function findById($id)
     {
-        return $this->model::create($data);
+        return $this->model::query()->findOrFail($id);
     }
 
-    public function delete($id)
-    {
-        return $this->model::query()->findOrFail($id)->delete();
-    }
 }

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Contracts;
 
 interface WishlistRepositoryInterface
 {
     public function index();
 
-    public function store($data);
+    public function findById($id);
 
-    public function delete($id);
 }

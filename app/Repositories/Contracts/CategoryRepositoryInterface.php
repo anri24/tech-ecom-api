@@ -1,16 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Contracts;
 
 interface CategoryRepositoryInterface
 {
     public function getall();
 
     public function findById($id);
-
-    public function create($data);
-
-    public function update($data, $id);
-
-    public function delete($id);
 }
