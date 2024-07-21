@@ -10,6 +10,7 @@ use App\Http\Actions\Product\UpdateProductAction;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Repositories\Contracts\ProductRepositoryInterface;
+use Exception;
 use Illuminate\Http\Response;
 
 class ProductController extends Controller
@@ -30,6 +31,9 @@ class ProductController extends Controller
         return $this->repository->findById($id);
     }
 
+    /**
+     * @throws Exception
+     */
     public function store(CreateProductAction $createProductAction, StoreProductRequest $request)
     {
         $createProductAction->execute($request);

@@ -13,14 +13,14 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('v1')->group(function () {
-    require_once __DIR__ . '/.admin.php';
-    require_once __DIR__ . '/.public.php';
-});
+//Route::prefix('v1')->group(function () {
+//    require_once __DIR__ . '/.admin.php';
+//    require_once __DIR__ . '/.public.php';
+//});
 
 require __DIR__ . '/auth.php';
 
-Route::middleware(['auth:sanctum'])->group(function () {
+//Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::controller(CategoryController::class)->group(function () {
         Route::get('category/all', 'index');
@@ -57,4 +57,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('cart/delete/{id}', 'destroy');
     });
 
-});
+//});

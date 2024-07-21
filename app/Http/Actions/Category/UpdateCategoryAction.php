@@ -8,13 +8,13 @@ use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 
-class UpdateCategoryAction
+readonly class UpdateCategoryAction
 {
     public function __construct(private CategoryRepositoryInterface $repository)
     {
     }
 
-    public function execute(UpdateProductRequest $request, $id): void
+    public function execute(UpdateCategoryRequest $request, $id): void
     {
         $category = $this->repository->findById($id);
 
