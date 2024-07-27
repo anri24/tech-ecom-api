@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GoogleAuth;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/google-auth', [GoogleAuth::class, 'loginOrRegister']);
 
 //Route::prefix('v1')->group(function () {
 //    require_once __DIR__ . '/.admin.php';
@@ -56,5 +59,6 @@ require __DIR__ . '/auth.php';
         Route::post('cart/store', 'store');
         Route::delete('cart/delete/{id}', 'destroy');
     });
+
 
 //});
