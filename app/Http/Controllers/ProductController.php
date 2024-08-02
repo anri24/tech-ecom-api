@@ -54,4 +54,9 @@ class ProductController extends Controller
 
         return response()->noContent(202);
     }
+
+    public function limitedProducts()
+    {
+        return $this->repository->limitedProducts();
+    }
 }

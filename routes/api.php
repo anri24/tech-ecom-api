@@ -38,6 +38,7 @@ require __DIR__ . '/auth.php';
 
     Route::controller(ProductController::class)->group(function () {
         Route::get('product/all', 'index');
+        Route::get('product/limited', 'limitedProducts');
         Route::get('product/{id}', 'show');
 
         Route::middleware('auth:sanctum')->group(function () {

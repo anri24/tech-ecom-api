@@ -21,4 +21,9 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return $this->model::query()->findOrFail($id);
     }
+
+    public function limitedProducts()
+    {
+        return $this->model::query()->orderBy('id','DESC')->limit(10)->get();
+    }
 }
