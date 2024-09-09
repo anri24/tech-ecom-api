@@ -9,6 +9,8 @@ use App\Http\Actions\Product\DeleteProductAction;
 use App\Http\Actions\Product\UpdateProductAction;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Resources\ProductResource;
+use App\Models\Product;
 use App\Repositories\Contracts\ProductRepositoryInterface;
 use Exception;
 use Illuminate\Http\Response;
@@ -23,12 +25,12 @@ class ProductController extends Controller
 
     public function index()
     {
-        return $this->repository->getAll();
+        return ProductResource::collection($this->repository->getAll());
     }
 
     public function show($id)
     {
-        return $this->repository->findById($id);
+        return ProductResource::make($this->repository->findById($id));
     }
 
     /**
@@ -57,6 +59,6 @@ class ProductController extends Controller
 
     public function limitedProducts()
     {
-        return $this->repository->limitedProducts();
+        return ProductResource::collection($this->repository->limitedProducts());
     }
 }
