@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\WishlistResource;
 use App\Http\Actions\Wishlist\{CreateWishlistAction, DeleteWishlistAction};
 use App\Http\Requests\StoreWishlistRequest;
 use App\Repositories\Contracts\WishlistRepositoryInterface;
@@ -16,7 +17,7 @@ class WishlistController extends Controller
 
     public function index()
     {
-        return $this->repository->index();
+        return WishlistResource::collection($this->repository->index());
     }
 
     public function store(CreateWishlistAction $createWishlistAction,StoreWishlistRequest $request)
