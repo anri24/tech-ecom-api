@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class WishlistResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,8 +19,9 @@ class WishlistResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'product_id' => $this->product_id,
-            'user_id' => $this->user_id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'created_at' => Carbon::create($this->created_at)->format('d-m-Y')
         ];
     }
 }

@@ -9,8 +9,10 @@ use App\Repositories\{CartRepository,
     Contracts\CartRepositoryInterface,
     Contracts\CategoryRepositoryInterface,
     Contracts\ProductRepositoryInterface,
+    Contracts\UserRepositoryInterface,
     Contracts\WishlistRepositoryInterface,
     ProductRepository,
+    UserRepository,
     WishlistRepository};
 use Illuminate\Support\ServiceProvider;
 
@@ -32,6 +34,9 @@ class RepositoryProvider extends ServiceProvider
         );
         $this->app->singleton(CartRepositoryInterface::class,
             CartRepository::class
+        );
+        $this->app->singleton(UserRepositoryInterface::class,
+            UserRepository::class
         );
     }
 

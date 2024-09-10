@@ -6,12 +6,21 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GoogleAuth;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// it need to add middleware where admin can use this routes.
+Route::controller(UserController::class)->group(function (){
+    Route::get('user/all','index');
+    Route::get('user/{id}','show');
+    Route::post('user/store','store');
+    Route::post('user/update/{id}','store');
 });
 
 Route::post('/google-auth', [GoogleAuth::class, 'loginOrRegister']);
